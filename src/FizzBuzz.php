@@ -9,14 +9,27 @@ class FizzBuzz
 
     public function convert(int $number)
     {
-        if ($number % 3 == 0 && $number % 5 == 0) {
-            return 'FizzBuzz';
-        } elseif ($number % 3 == 0) {
-            return 'Fizz';
-        } elseif ($number % 5 == 0) {
-            return 'Buzz';
-        } else {
-            return $number;
-        }
+        return $this->isFizz($number) && $this->isBuzz($number) ?
+            'FizzBuzz' : $this->isFizz($number) ?
+                'Fizz' : $this->isBuzz($number) ?
+                    'Buzz' : $number;
+    }
+
+    /**
+     * @param int $number
+     * @return bool
+     */
+    private function isFizz(int $number): bool
+    {
+        return $number % 3 == 0;
+    }
+
+    /**
+     * @param int $number
+     * @return bool
+     */
+    private function isBuzz(int $number): bool
+    {
+        return $number % 5 == 0;
     }
 }
