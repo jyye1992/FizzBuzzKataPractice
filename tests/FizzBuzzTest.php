@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\FizzBuzz;
 use PHPUnit\Framework\TestCase;
 
 class FizzBuzzTest extends TestCase
@@ -14,9 +15,10 @@ class FizzBuzzTest extends TestCase
         $fizzBuzz = new FizzBuzz();
         $expected = 'Fizz';
 
-
-        $actual = $fizzBuzz->convert(3);
-        $this->assertEquals($expected, $actual);
+        foreach ([3, 6, 9, 99] as $number) {
+            $actual = $fizzBuzz->convert($number);
+            $this->assertEquals($expected, $actual);
+        }
     }
 
 }
