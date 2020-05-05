@@ -7,17 +7,37 @@ use PHPUnit\Framework\TestCase;
 
 class FizzBuzzTest extends TestCase
 {
+    private $fizzBuzz;
+    private $numbers;
+
     /**
      * @test
      */
     public function multiples_of_three_print_fizz()
     {
-        $fizzBuzz = new FizzBuzz();
-        $expected = 'Fizz';
+        $this->givenNumbers([3, 6, 9, 99]);
+        $this->numberShouldBe(function () {
+            return 'Fizz';
+        });
+    }
 
-        foreach ([3, 6, 9, 99] as $number) {
-            $actual = $fizzBuzz->convert($number);
-            $this->assertEquals($expected, $actual);
+    /**
+     * @param array $numbers
+     * @return void
+     */
+    private function givenNumbers(array $numbers)
+    {
+        $this->numbers = $numbers;
+    }
+
+    /**
+     * @param string $expected
+     */
+    private function numberShouldBe(callable $callback): void
+    {
+        foreach ($this->numbers as $number) {
+            $actual = $this->fizzBuzz->convert($number);
+            $this->assertEquals($callback($number), $actual);
         }
     }
 
@@ -26,13 +46,10 @@ class FizzBuzzTest extends TestCase
      */
     public function multiples_of_five_print_buzz()
     {
-        $fizzBuzz = new FizzBuzz();
-        $expected = 'Buzz';
-
-        foreach ([5, 10, 25, 100] as $number) {
-            $actual = $fizzBuzz->convert($number);
-            $this->assertEquals($expected, $actual);
-        }
+        $this->givenNumbers([5, 10, 25, 100]);
+        $this->numberShouldBe(function () {
+            return 'Buzz';
+        });
     }
 
     /**
@@ -40,13 +57,10 @@ class FizzBuzzTest extends TestCase
      */
     public function numbers_which_are_multiples_of_both_three_and_five_print_FizzBuzz()
     {
-        $fizzBuzz = new FizzBuzz();
-        $expected = 'FizzBuzz';
-
-        foreach ([15, 75] as $number) {
-            $actual = $fizzBuzz->convert($number);
-            $this->assertEquals($expected, $actual);
-        }
+        $this->givenNumbers([15, 75]);
+        $this->numberShouldBe(function () {
+            return 'FizzBuzz';
+        });
     }
 
     /**
@@ -54,12 +68,15 @@ class FizzBuzzTest extends TestCase
      */
     public function non_fizz_and_buzz()
     {
-        $fizzBuzz = new FizzBuzz();
+        $this->givenNumbers([1, 2, 7]);
+        $this->numberShouldBe(function ($number) {
+            return $number;
+        });
+    }
 
-        foreach ([1, 2, 7] as $number) {
-            $expected = $number;
-            $actual = $fizzBuzz->convert($number);
-            $this->assertEquals($expected, $actual);
-        }
+    protected function setUp()
+    {
+        $this->fizzBuzz = new FizzBuzz();
+        parent::setUp();
     }
 }
