@@ -35,4 +35,18 @@ class FizzBuzzTest extends TestCase
         }
     }
 
+    /**
+     * @test
+     */
+    public function numbers_which_ar_multiples_of_both_three_and_five_print_FizzBuzz()
+    {
+        $fizzBuzz = new FizzBuzz();
+        $expected = 'FizzBuzz';
+
+        foreach ([15, 75] as $number) {
+            $actual = $fizzBuzz->convert($number);
+            $this->assertEquals($expected, $actual);
+        }
+    }
+
 }
