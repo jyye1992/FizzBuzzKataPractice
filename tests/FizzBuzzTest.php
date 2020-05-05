@@ -38,7 +38,7 @@ class FizzBuzzTest extends TestCase
     /**
      * @test
      */
-    public function numbers_which_ar_multiples_of_both_three_and_five_print_FizzBuzz()
+    public function numbers_which_are_multiples_of_both_three_and_five_print_FizzBuzz()
     {
         $fizzBuzz = new FizzBuzz();
         $expected = 'FizzBuzz';
@@ -49,4 +49,17 @@ class FizzBuzzTest extends TestCase
         }
     }
 
+    /**
+     * @test
+     */
+    public function non_fizz_and_buzz()
+    {
+        $fizzBuzz = new FizzBuzz();
+
+        foreach ([1, 2, 7] as $number) {
+            $expected = $number;
+            $actual = $fizzBuzz->convert($number);
+            $this->assertEquals($expected, $actual);
+        }
+    }
 }
