@@ -1,1 +1,1 @@
-# TennisKataPractice
+# FizzBuzzKataPractice
